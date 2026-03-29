@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>404 — Página no encontrada</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0c0b0a;
+        --text: #f4f0e8;
+        --muted: #9c9690;
+        --accent: #c96b4a;
+        --border: rgba(244, 240, 232, 0.12);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1.25rem;
+        font-family: 'DM Sans', system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap {
+        max-width: 26rem;
+        text-align: center;
+      }
+      .code {
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: clamp(3.5rem, 12vw, 5rem);
+        font-weight: 700;
+        line-height: 1;
+        color: var(--accent);
+        margin: 0 0 0.75rem;
+        letter-spacing: -0.03em;
+      }
+      h1 {
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 1.35rem;
+        font-weight: 600;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.02em;
+      }
+      p {
+        margin: 0 0 1.75rem;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.65;
+      }
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.65rem 1.35rem;
+        font-size: 0.9375rem;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 12px;
+        background: var(--accent);
+        color: var(--bg);
+        box-shadow: 0 8px 28px rgba(201, 107, 74, 0.35);
+        transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      a:hover {
+        transform: translateY(-2px);
+      }
+      .sub {
+        margin-top: 2rem;
+        font-size: 0.875rem;
+        color: #6b6660;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <p class="code" aria-hidden="true">404</p>
+      <h1>Página no encontrada</h1>
+      <p>
+        La ruta que buscás no existe o fue movida. Volvé al inicio del portfolio.
+      </p>
+      <p class="sub" lang="en">Page not found — the link may be broken or the page was removed.</p>
+      <a href="/">Ir al inicio</a>
+    </div>
+  </body>
+</html>

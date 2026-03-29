@@ -759,6 +759,22 @@
   color: var(--color-text-muted);
 }
 
+.footerPrivacy {
+  margin-top: var(--space-sm) !important;
+}
+
+.footerPrivacyLink {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-subtle);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-out);
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
 @media (max-width: 900px) {
   .heroGrid {
     grid-template-columns: 1fr;

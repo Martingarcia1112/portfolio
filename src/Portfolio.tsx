@@ -1,5 +1,12 @@
 import { useRef, useState } from 'react'
-import { IconGithub, IconGmail, IconGoogleMaps, IconLinkedIn, IconWhatsapp } from './ContactIcons'
+import {
+  IconGithub,
+  IconGlobe,
+  IconGmail,
+  IconGoogleMaps,
+  IconLinkedIn,
+  IconWhatsapp,
+} from './ContactIcons'
 import { useLocale } from './hooks/useLocale'
 import { personal, sectionIds } from './data/cvContent'
 import { CV_PATHS, getSiteContent } from './i18n/siteContent'
@@ -276,6 +283,21 @@ export function Portfolio() {
                     </dd>
                   </div>
                   <div className={styles.contactRow}>
+                    <dt>{c.contact.website}</dt>
+                    <dd>
+                      <a
+                        className={styles.contactLine}
+                        href={personal.portfolio.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={c.contact.websiteAria}
+                      >
+                        <IconGlobe className={styles.contactIcon} />
+                        <span>{personal.portfolio.displayHost}</span>
+                      </a>
+                    </dd>
+                  </div>
+                  <div className={styles.contactRow}>
                     <dt>{c.contact.social}</dt>
                     <dd>
                       <div className={styles.contactSocial}>
@@ -304,11 +326,35 @@ export function Portfolio() {
               </div>
             </div>
           </section>
+
+          <section
+            id={sectionIds.privacy}
+            className={`${styles.block} ${styles.blockMuted}`}
+            aria-labelledby="h-privacy"
+          >
+            <div className={styles.blockInner}>
+              <header className={styles.blockHead}>
+                <h2 id="h-privacy" className={styles.blockTitle}>
+                  {c.privacy.title}
+                </h2>
+              </header>
+              <div className={styles.about}>
+                {c.privacy.paragraphs.map((t, i) => (
+                  <p key={i}>{t}</p>
+                ))}
+              </div>
+            </div>
+          </section>
         </main>
 
         <footer className={styles.footer}>
           <p>
             © {new Date().getFullYear()} {personal.name}
+          </p>
+          <p className={styles.footerPrivacy}>
+            <a className={styles.footerPrivacyLink} href={`#${sectionIds.privacy}`}>
+              {c.privacy.footerLink}
+            </a>
           </p>
         </footer>
       </div>

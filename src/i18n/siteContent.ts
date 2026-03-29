@@ -39,6 +39,8 @@ export type SiteContent = {
     gmail: string
     whatsapp: string
     location: string
+    website: string
+    websiteAria: string
     social: string
     whatsappAria: string
     mapsAria: (location: string) => string
@@ -48,13 +50,18 @@ export type SiteContent = {
     fallbackLabel: string
     fallbackHint: string
   }
+  privacy: {
+    title: string
+    footerLink: string
+    paragraphs: readonly string[]
+  }
 }
 
 const es: SiteContent = {
   htmlLang: 'es-AR',
-  documentTitle: 'Martín García — Desarrollador Full Stack',
+  documentTitle: 'Martín García — Desarrollador de software',
   documentDescription:
-    'Martín García — Desarrollador full stack. Portfolio y contacto. Córdoba, Argentina.',
+    'Martín García — Desarrollador de software. Portfolio y contacto. Córdoba, Argentina.',
   skipToContent: 'Saltar al contenido',
   navAria: 'Secciones del sitio',
   navItems: [
@@ -67,7 +74,7 @@ const es: SiteContent = {
   ],
   hero: {
     kicker: 'Desde 2021',
-    role: 'Desarrollador Full Stack',
+    role: 'Desarrollador de software',
     availability: 'Disponibilidad: híbrido y remoto',
     contactCta: 'Contactar',
     experienceCta: 'Experiencia',
@@ -90,18 +97,18 @@ const es: SiteContent = {
     contact: 'Contacto',
   },
   aboutParagraphs: [
-    'Desarrollador de software con experiencia desde 2022: fuerte en Vue.js y JavaScript para productos web, y cada vez más cómodo llevando features hasta backend, datos y despliegue.',
-    'Trabajo con APIs REST, Spring Boot, PostgreSQL y entornos ágiles, priorizando código mantenible y entregas con impacto en usuarios y negocio.',
-    'Uso asistencia de IA (por ejemplo Cursor) para acelerar exploración, documentación y refactors, siempre validando con pruebas, revisión y buenas prácticas — la IA amplía el alcance, no reemplaza el criterio.',
+    'Como desarrollador front-end en Social Learning trabajo en interfaces web eficientes y escalables con Vue.js, HTML, CSS y JavaScript, usando Git y Jira en equipos ágiles — también lideré proyectos en entornos colaborativos y dinámicos.',
+    'Mi formación como técnico en programación refuerza un enfoque en productos de software orientados al usuario; sumo integración con APIs REST, bases de datos y despliegues en AWS.',
+    'Uso herramientas de desarrollo asistido por IA para ganar productividad y calidad, siempre con revisión humana, pruebas y estándares de equipo. Me motivan proyectos con impacto real.',
   ],
   skillGroups: [
     {
       category: 'Cliente web',
-      items: ['Vue.js (v2, v3)', 'React', 'JavaScript', 'HTML5', 'CSS3'],
+      items: ['Vue.js (v2, v3)', 'React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
     },
     {
       category: 'Backend & APIs',
-      items: ['Java', 'Spring Boot', 'REST APIs'],
+      items: ['Java', 'Spring Boot', 'Node.js (Express)', 'REST APIs'],
     },
     {
       category: 'Datos',
@@ -122,42 +129,67 @@ const es: SiteContent = {
         'Linux (CLI)',
         'Windows',
         'macOS',
-        'AWS EC2',
+        'AWS',
+        'Vercel',
+        'Render',
         'n8n (self-hosted)',
         'Jira',
+        'Notion',
+      ],
+    },
+    {
+      category: 'Metodologías',
+      items: ['Scrum', 'Sprints y ceremonias', 'Estimaciones', 'Code review'],
+    },
+    {
+      category: 'Certificaciones',
+      items: [
+        'Curso Básico de Vue.js 2',
+        'Vue.js: Componentes y Composition API',
+        'Curso de React.js',
+        'Curso de Automatizaciones con n8n',
+        'Scrum Foundation (self-paced)',
       ],
     },
     {
       category: 'Idiomas',
-      items: ['Español — nativo', 'Inglés — B1'],
+      items: ['Español — nativo', 'Inglés — nivel intermedio (working)'],
     },
   ],
   experience: [
     {
       company: 'Social Learning',
-      role: 'Desarrollador de software',
-      period: 'Diciembre 2022 — actualidad',
+      role: 'Desarrollador front-end',
+      period: 'Diciembre 2023 — actualidad',
       bullets: [
-        'Desarrollo y optimización de funcionalidades con Vue.js (v2/v3) y Spring Boot.',
-        'Participación en módulos académicos, financieros y de seguridad.',
+        'Interfaces web con foco en calidad, rendimiento y mantenibilidad bajo metodologías ágiles.',
+        'Vue.js, HTML, CSS y JavaScript; Git para versionado y trabajo colaborativo.',
+        'Consumo e integración de APIs REST; Scrum con Jira (sprints, ceremonias, estimaciones).',
+        'Despliegue y mantenimiento de aplicaciones en AWS.',
+        'Herramientas de IA asistida para productividad y calidad de código; colaboración con backend y code reviews.',
       ],
     },
     {
       company: 'Social Learning',
       role: 'Team Leader',
-      period: 'Marzo 2024 — Julio 2025',
+      period: 'Abril 2024 — enero 2026',
       bullets: [
-        'Lideré la creación de un proyecto con Vue.js (v3), Spring Boot y PostgreSQL.',
-        'Despliegues continuos en Linux sobre AWS, promoviendo buenas prácticas y trabajo colaborativo.',
+        'Liderazgo de equipos de alumnos en prácticas profesionales: acompañamiento y organización del trabajo en proyectos reales.',
+        'Coordinación técnica, seguimiento del equipo y planificación de sprints con Jira y Notion.',
+        'Stack del proyecto: Vue.js, Spring Boot, Express y PostgreSQL.',
+        'Despliegue y gestión de entornos en AWS, Render y Vercel.',
+        'Buenas prácticas, revisión de código y apoyo ante bloqueos técnicos.',
       ],
     },
     {
       company: 'Social Learning',
-      role: 'Soporte TI',
-      period: 'Diciembre 2022 — Diciembre 2023',
+      role: 'Técnico de soporte de TI',
+      period: 'Diciembre 2022 — enero 2024',
       bullets: [
-        'Gestión de incidencias en hardware y software mediante ticketera.',
-        'Resolución de problemas con SQL alineado a normativas del negocio.',
+        'Soporte de primer nivel vía ticketera para incidentes de la aplicación.',
+        'Diagnóstico y resolución de problemas; derivación a niveles superiores cuando correspondía.',
+        'Consultas y validaciones en SQL para analizar información y resolver incidencias.',
+        'Coordinación con equipos técnicos ante problemas recurrentes.',
       ],
     },
   ],
@@ -165,13 +197,13 @@ const es: SiteContent = {
     {
       title: 'Tecnicatura en Ciberseguridad',
       institution: 'Teclab',
-      period: 'Octubre 2023 — en curso',
+      period: 'Agosto 2023 — en curso',
       status: 'En curso',
     },
     {
-      title: 'Tecnicatura en Programación',
+      title: 'Técnico en Programación',
       institution: 'Teclab',
-      period: 'Marzo 2021 — Agosto 2023',
+      period: 'Febrero 2021 — agosto 2023',
     },
     {
       title: 'Secundario completo',
@@ -184,6 +216,8 @@ const es: SiteContent = {
     gmail: 'Gmail',
     whatsapp: 'WhatsApp',
     location: 'Ubicación',
+    website: 'Portfolio',
+    websiteAria: 'Abrir este portfolio en una pestaña nueva',
     social: 'Redes',
     whatsappAria: 'Abrir chat de WhatsApp con este número',
     mapsAria: (location: string) => `Ver ${location} en Google Maps`,
@@ -193,13 +227,24 @@ const es: SiteContent = {
     fallbackLabel: 'Foto de perfil',
     fallbackHint: 'public/images/profile.jpg',
   },
+  privacy: {
+    title: 'Privacidad',
+    footerLink: 'Privacidad',
+    paragraphs: [
+      'Este sitio es un portfolio estático: no uso cookies de analítica ni de publicidad.',
+      'La preferencia de idioma (español o inglés) se guarda solo en tu navegador, en tu dispositivo, mediante almacenamiento local (localStorage). No se envía a ningún servidor propio.',
+      'Los enlaces a redes, correo, WhatsApp, mapas u otros sitios se rigen por las políticas de privacidad de cada servicio.',
+      'El sitio está alojado en Vercel; el proveedor puede registrar datos técnicos habituales de hosting (por ejemplo solicitudes y errores) según su documentación.',
+      'Para consultas sobre este aviso podés escribirme por los medios indicados en la sección de contacto.',
+    ],
+  },
 }
 
 const en: SiteContent = {
   htmlLang: 'en',
-  documentTitle: 'Martín García — Full Stack Developer',
+  documentTitle: 'Martín García — Software developer',
   documentDescription:
-    'Martín García — Full stack developer. Portfolio and contact. Córdoba, Argentina.',
+    'Martín García — Software developer. Portfolio and contact. Córdoba, Argentina.',
   skipToContent: 'Skip to content',
   navAria: 'Site sections',
   navItems: [
@@ -212,7 +257,7 @@ const en: SiteContent = {
   ],
   hero: {
     kicker: 'Since 2021',
-    role: 'Full Stack Developer',
+    role: 'Software developer',
     availability: 'Availability: hybrid & remote',
     contactCta: 'Get in touch',
     experienceCta: 'Experience',
@@ -235,18 +280,18 @@ const en: SiteContent = {
     contact: 'Contact',
   },
   aboutParagraphs: [
-    'Software developer since 2022: strong in Vue.js and JavaScript for web products, increasingly comfortable taking features through backend, data, and deployment.',
-    'I work with REST APIs, Spring Boot, PostgreSQL, and agile environments, focusing on maintainable code and deliveries that matter to users and the business.',
-    'I use AI assistance (e.g. Cursor) to speed up exploration, documentation, and refactors — always validated with tests, review, and team standards. AI extends reach; it does not replace judgment.',
+    'As a front-end developer at Social Learning I build efficient, scalable web UIs with Vue.js, HTML, CSS, and JavaScript, using Git and Jira in agile teams — I have also led projects in collaborative, fast-moving environments.',
+    'My technical programming background reinforces a user-oriented approach; I integrate REST APIs, databases, and deployments on AWS.',
+    'I use AI-assisted development for productivity and quality, always with human review, tests, and team standards. I am motivated by work that has real impact.',
   ],
   skillGroups: [
     {
       category: 'Web client',
-      items: ['Vue.js (v2, v3)', 'React', 'JavaScript', 'HTML5', 'CSS3'],
+      items: ['Vue.js (v2, v3)', 'React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
     },
     {
       category: 'Backend & APIs',
-      items: ['Java', 'Spring Boot', 'REST APIs'],
+      items: ['Java', 'Spring Boot', 'Node.js (Express)', 'REST APIs'],
     },
     {
       category: 'Data',
@@ -267,56 +312,81 @@ const en: SiteContent = {
         'Linux (CLI)',
         'Windows',
         'macOS',
-        'AWS EC2',
+        'AWS',
+        'Vercel',
+        'Render',
         'n8n (self-hosted)',
         'Jira',
+        'Notion',
+      ],
+    },
+    {
+      category: 'Methodologies',
+      items: ['Scrum', 'Sprints & ceremonies', 'Estimation', 'Code review'],
+    },
+    {
+      category: 'Certifications',
+      items: [
+        'Vue.js 2 basics course',
+        'Vue.js: Components & Composition API',
+        'React.js course',
+        'n8n automation course',
+        'Scrum Foundation (self-paced)',
       ],
     },
     {
       category: 'Languages',
-      items: ['Spanish — native', 'English — B1'],
+      items: ['Spanish — native', 'English — limited working proficiency'],
     },
   ],
   experience: [
     {
       company: 'Social Learning',
-      role: 'Software Developer',
-      period: 'December 2022 — present',
+      role: 'Front-end developer',
+      period: 'December 2023 — present',
       bullets: [
-        'Developed and optimized features with Vue.js (v2/v3) and Spring Boot.',
-        'Contributed to academic, financial, and security modules.',
+        'Web UIs focused on quality, performance, and maintainability in agile delivery.',
+        'Vue.js, HTML, CSS, and JavaScript; Git for versioning and collaboration.',
+        'REST API integration; Scrum with Jira (sprints, ceremonies, estimation).',
+        'Deploying and maintaining applications on AWS.',
+        'AI-assisted tooling for productivity and code quality; backend collaboration and code reviews.',
       ],
     },
     {
       company: 'Social Learning',
-      role: 'Team Leader',
-      period: 'March 2024 — July 2025',
+      role: 'Team leader',
+      period: 'April 2024 — January 2026',
       bullets: [
-        'Led the creation of a project with Vue.js (v3), Spring Boot, and PostgreSQL.',
-        'Continuous deployment on Linux on AWS, promoting good practices and collaboration.',
+        'Led student teams in professional practice: mentoring and organizing real project work.',
+        'Technical coordination, team follow-up, and sprint planning with Jira and Notion.',
+        'Project stack: Vue.js, Spring Boot, Express, and PostgreSQL.',
+        'Deployments and environments on AWS, Render, and Vercel.',
+        'Best practices, code review, and support for technical blockers.',
       ],
     },
     {
       company: 'Social Learning',
-      role: 'IT Support',
-      period: 'December 2022 — December 2023',
+      role: 'IT support technician',
+      period: 'December 2022 — January 2024',
       bullets: [
-        'Handled hardware and software incidents through a ticketing system.',
-        'SQL troubleshooting aligned with business policies.',
+        'First-line support via ticketing for application incidents.',
+        'Troubleshooting and resolution; escalation when needed.',
+        'SQL queries and checks to analyse data and resolve incidents.',
+        'Coordination with technical teams on recurring issues.',
       ],
     },
   ],
   education: [
     {
-      title: 'Associate in Cybersecurity',
+      title: 'Associate in cybersecurity',
       institution: 'Teclab',
-      period: 'October 2023 — in progress',
+      period: 'August 2023 — in progress',
       status: 'In progress',
     },
     {
-      title: 'Associate in Programming',
+      title: 'Technical degree in programming',
       institution: 'Teclab',
-      period: 'March 2021 — August 2023',
+      period: 'February 2021 — August 2023',
     },
     {
       title: 'High school diploma',
@@ -329,6 +399,8 @@ const en: SiteContent = {
     gmail: 'Gmail',
     whatsapp: 'WhatsApp',
     location: 'Location',
+    website: 'Portfolio',
+    websiteAria: 'Open this portfolio in a new tab',
     social: 'Social',
     whatsappAria: 'Open WhatsApp chat with this number',
     mapsAria: (location: string) => `View ${location} on Google Maps`,
@@ -337,6 +409,17 @@ const en: SiteContent = {
     alt: (name: string) => `Portrait of ${name}`,
     fallbackLabel: 'Profile photo',
     fallbackHint: 'public/images/profile.jpg',
+  },
+  privacy: {
+    title: 'Privacy',
+    footerLink: 'Privacy',
+    paragraphs: [
+      'This site is a static portfolio: it does not use analytics or advertising cookies.',
+      'Your language preference (Spanish or English) is stored only in your browser on your device (localStorage). It is not sent to any server I operate.',
+      'Links to social networks, email, WhatsApp, maps, or other sites are governed by each provider’s privacy policy.',
+      'The site is hosted on Vercel; the platform may log standard technical data (for example requests and errors) as described in their documentation.',
+      'For questions about this notice, you can reach me through the contact section.',
+    ],
   },
 }
 

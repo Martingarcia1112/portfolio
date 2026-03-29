@@ -15,6 +15,10 @@ export const personal = {
     label: 'GitHub',
     href: 'https://github.com/Martingarcia1112',
   },
+  portfolio: {
+    href: 'https://martin-garcia.vercel.app/',
+    displayHost: 'martin-garcia.vercel.app',
+  },
 } as const
 
 /** IDs de ancla: fijos para no romper enlaces ni el scroll spy al cambiar idioma. */
@@ -25,6 +29,7 @@ export const sectionIds = {
   experience: 'experiencia',
   education: 'educacion',
   contact: 'contacto',
+  privacy: 'privacidad',
 } as const
 
 export type ExperienceItem = {
