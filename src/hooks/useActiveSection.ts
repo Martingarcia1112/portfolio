@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { sectionIds } from '../data/cvContent'
 
-/** Nav activo según la sección más visible (IntersectionObserver). */
+/** Orden en el DOM (debe coincidir con el scroll de la página). */
 const observedIds = [
   sectionIds.home,
   sectionIds.about,
@@ -11,34 +11,51 @@ const observedIds = [
   sectionIds.contact,
 ] as const
 
+/**
+ * Sección activa en el menú: última cuyo borde superior ya cruzó una línea bajo el header.
+ * Más estable que IntersectionObserver con varias secciones a la vez (evita saltos Inicio ↔ Sobre mí).
+ */
 export function useActiveSection(): string {
   const [activeId, setActiveId] = useState<string>(sectionIds.home)
 
   useEffect(() => {
-    const elements = observedIds
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null)
+    const lineY = () => {
+      const header = document.querySelector('header')
+      const bottom = header?.getBoundingClientRect().bottom ?? 72
+      return bottom + 20
+    }
 
-    if (elements.length === 0) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible[0]?.target.id) {
-          setActiveId(visible[0].target.id)
+    const pickActive = (): string => {
+      const y = lineY()
+      let active: string = sectionIds.home
+      for (const id of observedIds) {
+        const el = document.getElementById(id)
+        if (!el) continue
+        if (el.getBoundingClientRect().top <= y) {
+          active = id
         }
-      },
-      {
-        root: null,
-        rootMargin: '-12% 0px -50% 0px',
-        threshold: [0, 0.15, 0.35, 0.55],
-      },
-    )
+      }
+      return active
+    }
 
-    elements.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
+    let raf = 0
+    const schedule = () => {
+      if (raf) return
+      raf = requestAnimationFrame(() => {
+        raf = 0
+        const next = pickActive()
+        setActiveId((prev) => (prev === next ? prev : next))
+      })
+    }
+
+    schedule()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule, { passive: true })
+    return () => {
+      if (raf) cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
   }, [])
 
   return activeId

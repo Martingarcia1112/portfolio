@@ -12,7 +12,7 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* Sin overflow-x aquí: en muchos navegadores rompe position:sticky del header */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -32,13 +32,17 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  overflow-x: hidden;
   font-family: var(--font-body);
   font-size: 1.0625rem;
   line-height: 1.65;
   color: var(--color-text);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 35%, transparent);
+  color: var(--color-text);
 }
 
 /* Textura sutil de ruido en el fondo (sin imagen externa) */

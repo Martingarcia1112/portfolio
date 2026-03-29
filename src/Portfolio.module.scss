@@ -31,58 +31,101 @@
   z-index: 1;
 }
 
-/* —— Header —— */
+/* Recorta desbordes horizontales del contenido sin afectar el header (hermano, no ancestro) */
+.mainWrap {
+  overflow-x: clip;
+}
+
+/* —— Header flotante (sticky real: sin overflow-x en html/body) —— */
 .header {
   position: sticky;
   top: 0;
   z-index: 100;
-  height: var(--header-height);
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--color-border);
-  background: color-mix(in srgb, var(--color-bg) 90%, transparent);
-  backdrop-filter: blur(12px);
+  padding: 0.65rem var(--space-lg) 0.4rem;
+  pointer-events: none;
 }
 
-.headerInner {
-  width: 100%;
+.headerBar {
+  pointer-events: auto;
   max-width: var(--content-max);
+  width: 100%;
   margin: 0 auto;
-  padding: 0 var(--space-lg);
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-md);
+  gap: 0.5rem 0.85rem;
+  min-height: 3.15rem;
+  padding: 0.35rem var(--space-md);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+  backdrop-filter: blur(16px) saturate(1.15);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    0 16px 48px rgba(0, 0, 0, 0.35);
+  min-width: 0;
 }
 
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.125rem;
-  letter-spacing: -0.03em;
-  color: var(--color-text);
-  text-decoration: none;
+.headerNav {
+  min-width: 0;
+  justify-self: center;
+  max-width: 100%;
+}
+
+.headerEnd {
+  display: flex;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.langBtn,
+.langBtnActive {
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.55rem;
+  cursor: pointer;
+  border: none;
+  margin: 0;
+  transition:
+    color 0.2s var(--ease-out),
+    background 0.2s var(--ease-out);
+}
+
+.langBtn {
+  background: transparent;
+  color: var(--color-text-muted);
 
   &:hover {
-    color: var(--color-accent);
+    color: var(--color-text);
+    background: color-mix(in srgb, var(--color-text) 6%, transparent);
   }
 }
 
-.brandDot {
-  width: 10px;
-  height: 10px;
-  border-radius: 2px;
-  background: linear-gradient(135deg, var(--color-accent), #8b4d3a);
-  box-shadow: 0 0 12px var(--color-accent-glow);
+.langBtnActive {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
+/*
+ * Sin mask-image en los bordes: generaba un “degradado” que en tema oscuro se veía
+ * como mancha sobre “Contacto” y dejaba raro el inicio del menú.
+ * En desktop no hace falta scroll; en móvil, scroll sin fade.
+ */
 .nav {
+  min-width: 0;
+  max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  mask-image: linear-gradient(to right, transparent, black 12px, black calc(100% - 12px), transparent);
+  scrollbar-width: thin;
+}
+
+@media (min-width: 900px) {
+  .nav {
+    overflow-x: visible;
+  }
 }
 
 .navList {
@@ -90,7 +133,8 @@
   gap: var(--space-md);
   list-style: none;
   margin: 0;
-  padding: 0;
+  /* Padding inferior: el subrayado (::after) queda dentro del área útil cuando hay overflow-x */
+  padding: 2px 0 8px;
   white-space: nowrap;
 }
 
@@ -150,7 +194,7 @@
 
 /* —— Hero —— */
 .hero {
-  scroll-margin-top: var(--header-height);
+  scroll-margin-top: var(--header-sticky-offset);
   padding: var(--space-xl) var(--space-lg) var(--space-2xl);
   max-width: var(--content-max);
   margin: 0 auto;
@@ -191,40 +235,74 @@
 }
 
 .heroRole {
-  margin: 0 0 var(--space-md);
+  margin: 0 0 var(--space-xs);
   font-family: var(--font-display);
   font-size: clamp(1.25rem, 2.5vw, 1.5rem);
   font-weight: 500;
   color: var(--color-text-muted);
 }
 
-.heroTag {
+.heroAvailability {
   margin: 0 0 var(--space-lg);
-  max-width: 36rem;
-  color: var(--color-text-muted);
-  font-size: 1.05rem;
-}
-
-.heroLinks {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-sm);
-  margin-bottom: var(--space-lg);
   font-size: 0.9375rem;
-}
-
-.linkDot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--color-text-subtle);
+  font-weight: 500;
+  color: var(--color-text-subtle);
 }
 
 .heroActions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
+}
+
+.heroCv {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  max-width: 32rem;
+}
+
+.heroCvIntro {
+  margin: 0 0 var(--space-md);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.heroCvRow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.btnCv {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.15rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  border: 1px solid color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+  color: var(--color-text);
+  background: var(--color-bg-card);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition:
+    border-color 0.2s var(--ease-out),
+    color 0.2s var(--ease-out),
+    background 0.2s var(--ease-out),
+    transform 0.2s var(--ease-out);
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+    transform: translateY(-1px);
+  }
 }
 
 .btnPrimary {
@@ -326,7 +404,7 @@
 
 /* —— Bloques de sección —— */
 .block {
-  scroll-margin-top: var(--header-height);
+  scroll-margin-top: var(--header-sticky-offset);
   padding: var(--space-2xl) var(--space-lg);
   border-top: 1px solid var(--color-border);
 }
@@ -348,16 +426,6 @@
 
 .blockHead {
   margin-bottom: var(--space-xl);
-}
-
-.blockIdx {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--color-accent);
-  margin-bottom: var(--space-xs);
-  letter-spacing: 0.08em;
 }
 
 .blockTitle {
@@ -608,10 +676,74 @@
   }
 }
 
+.contactLine {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--color-text);
+  text-decoration: none;
+  word-break: break-word;
+  transition: color 0.2s var(--ease-out);
+
+  &:hover {
+    color: var(--color-accent);
+  }
+
+  &:hover .contactIcon {
+    opacity: 1;
+  }
+}
+
+.contactIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: var(--color-accent);
+  opacity: 0.88;
+  transition: opacity 0.2s var(--ease-out);
+}
+
 .contactSocial {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-md);
+  gap: var(--space-sm);
+}
+
+.socialPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  text-decoration: none;
+  transition:
+    border-color 0.2s var(--ease-out),
+    color 0.2s var(--ease-out),
+    background 0.2s var(--ease-out);
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--color-accent) 45%, var(--color-border));
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+}
+
+.socialIcon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  color: inherit;
+  opacity: 0.88;
+  transition: opacity 0.2s var(--ease-out);
+}
+
+.socialPill:hover .socialIcon,
+.socialPill:focus-visible .socialIcon {
+  opacity: 1;
 }
 
 .footer {
@@ -622,15 +754,9 @@
 }
 
 .footer p {
-  margin: 0 0 var(--space-xs);
+  margin: 0;
   font-size: 0.9375rem;
   color: var(--color-text-muted);
-
-  &:last-child {
-    margin-bottom: 0;
-    font-size: 0.8125rem;
-    color: var(--color-text-subtle);
-  }
 }
 
 @media (max-width: 900px) {
@@ -648,14 +774,18 @@
     justify-self: center;
   }
 
-  .heroLinks,
   .heroActions {
     justify-content: center;
   }
 
-  .heroTag {
+  .heroCv {
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+  }
+
+  .heroCvIntro {
+    text-align: center;
   }
 
   .contactGrid {
@@ -664,8 +794,13 @@
 }
 
 @media (max-width: 720px) {
-  .headerInner {
-    padding: 0 var(--space-md);
+  .header {
+    padding-inline: var(--space-md);
+  }
+
+  .headerBar {
+    grid-template-columns: minmax(0, 1fr) auto;
+    padding-inline: var(--space-sm);
   }
 
   .navList {

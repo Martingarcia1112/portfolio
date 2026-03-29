@@ -1,38 +1,36 @@
 import { useRef, useState } from 'react'
-import {
-  aboutParagraphs,
-  education,
-  experience,
-  navItems,
-  personal,
-  sectionIds,
-  skillGroups,
-} from './data/cvContent'
+import { IconGithub, IconGmail, IconGoogleMaps, IconLinkedIn, IconWhatsapp } from './ContactIcons'
+import { useLocale } from './hooks/useLocale'
+import { personal, sectionIds } from './data/cvContent'
+import { CV_PATHS, getSiteContent } from './i18n/siteContent'
 import { useActiveSection } from './hooks/useActiveSection'
 import { useAmbientPointer } from './hooks/useAmbientPointer'
+import { useSyncDocumentLang } from './hooks/useSyncDocumentLang'
 import styles from './Portfolio.module.scss'
 
 const PHOTO = '/images/profile.jpg'
 
 export function Portfolio() {
   const shellRef = useRef<HTMLDivElement>(null)
+  const { locale, setLocale } = useLocale()
+  const c = getSiteContent(locale)
+  useSyncDocumentLang(c)
   useAmbientPointer(shellRef)
   const active = useActiveSection()
   const [photoOk, setPhotoOk] = useState(true)
+  const phoneDigits = personal.phone.replace(/\D/g, '')
+  const whatsappHref = `https://wa.me/${phoneDigits}`
+  const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(personal.location)}`
 
   return (
     <div ref={shellRef} className={styles.shell}>
       <div className={styles.spotlight} aria-hidden />
       <div className={styles.layer}>
         <header className={styles.header}>
-          <div className={styles.headerInner}>
-            <a className={styles.brand} href={`#${sectionIds.home}`}>
-              <span className={styles.brandDot} aria-hidden />
-              MG
-            </a>
-            <nav className={styles.nav} aria-label="Secciones">
+          <div className={styles.headerBar}>
+            <nav className={`${styles.nav} ${styles.headerNav}`} aria-label={c.navAria}>
               <ul className={styles.navList}>
-                {navItems.map(({ id, label }) => (
+                {c.navItems.map(({ id, label }) => (
                   <li key={id}>
                     <a
                       href={`#${id}`}
@@ -44,10 +42,28 @@ export function Portfolio() {
                 ))}
               </ul>
             </nav>
+            <div className={styles.headerEnd} role="group" aria-label={c.langSwitch.groupAria}>
+              <button
+                type="button"
+                className={locale === 'es' ? styles.langBtnActive : styles.langBtn}
+                aria-pressed={locale === 'es'}
+                onClick={() => setLocale('es')}
+              >
+                {c.langSwitch.es}
+              </button>
+              <button
+                type="button"
+                className={locale === 'en' ? styles.langBtnActive : styles.langBtn}
+                aria-pressed={locale === 'en'}
+                onClick={() => setLocale('en')}
+              >
+                {c.langSwitch.en}
+              </button>
+            </div>
           </div>
         </header>
 
-        <main>
+        <main className={styles.mainWrap}>
           <section
             id={sectionIds.home}
             className={styles.hero}
@@ -55,28 +71,32 @@ export function Portfolio() {
           >
             <div className={styles.heroGrid}>
               <div className={styles.heroCopy}>
-                <p className={styles.kicker}>Desde 2022 · stack web completo</p>
+                <p className={styles.kicker}>{c.hero.kicker}</p>
                 <h1 id="hero-name" className={styles.heroName}>
                   {personal.name}
                 </h1>
-                <p className={styles.heroRole}>{personal.title}</p>
-                <p className={styles.heroTag}>{personal.tagline}</p>
-                <div className={styles.heroLinks}>
-                  <a href={personal.linkedin.href} target="_blank" rel="noopener noreferrer">
-                    {personal.linkedin.label} · {personal.linkedin.handle}
-                  </a>
-                  <span className={styles.linkDot} aria-hidden />
-                  <a href={personal.github.href} target="_blank" rel="noopener noreferrer">
-                    {personal.github.label} · {personal.github.handle}
-                  </a>
-                </div>
+                <p className={styles.heroRole}>{c.hero.role}</p>
+                <p className={styles.heroAvailability}>{c.hero.availability}</p>
                 <div className={styles.heroActions}>
                   <a className={styles.btnPrimary} href={`#${sectionIds.contact}`}>
-                    Contactar
+                    {c.hero.contactCta}
                   </a>
                   <a className={styles.btnGhost} href={`#${sectionIds.experience}`}>
-                    Experiencia
+                    {c.hero.experienceCta}
                   </a>
+                </div>
+                <div className={styles.heroCv} role="region" aria-labelledby="hero-cv-heading">
+                  <p id="hero-cv-heading" className={styles.heroCvIntro}>
+                    {c.cv.intro}
+                  </p>
+                  <div className={styles.heroCvRow}>
+                    <a className={styles.btnCv} href={CV_PATHS.es} download>
+                      {c.cv.downloadEs}
+                    </a>
+                    <a className={styles.btnCv} href={CV_PATHS.en} download>
+                      {c.cv.downloadEn}
+                    </a>
+                  </div>
                 </div>
               </div>
               <div className={styles.heroVisual}>
@@ -84,7 +104,7 @@ export function Portfolio() {
                 {photoOk ? (
                   <img
                     src={PHOTO}
-                    alt={`Retrato de ${personal.name}`}
+                    alt={c.photo.alt(personal.name)}
                     className={styles.photo}
                     width={320}
                     height={400}
@@ -93,9 +113,9 @@ export function Portfolio() {
                     onError={() => setPhotoOk(false)}
                   />
                 ) : (
-                  <div className={styles.photoFallback} role="img" aria-label="Foto de perfil">
+                  <div className={styles.photoFallback} role="img" aria-label={c.photo.fallbackLabel}>
                     <span>
-                      <code>public/images/profile.jpg</code>
+                      <code>{c.photo.fallbackHint}</code>
                     </span>
                   </div>
                 )}
@@ -110,13 +130,12 @@ export function Portfolio() {
           >
             <div className={styles.blockInner}>
               <header className={styles.blockHead}>
-                <span className={styles.blockIdx}>01</span>
                 <h2 id="h-about" className={styles.blockTitle}>
-                  Sobre mí
+                  {c.sections.about}
                 </h2>
               </header>
               <div className={styles.about}>
-                {aboutParagraphs.map((t, i) => (
+                {c.aboutParagraphs.map((t, i) => (
                   <p key={i}>{t}</p>
                 ))}
               </div>
@@ -126,14 +145,13 @@ export function Portfolio() {
           <section id={sectionIds.skills} className={styles.block} aria-labelledby="h-skills">
             <div className={styles.blockInner}>
               <header className={styles.blockHead}>
-                <span className={styles.blockIdx}>02</span>
                 <h2 id="h-skills" className={styles.blockTitle}>
-                  Habilidades
+                  {c.sections.skills}
                 </h2>
               </header>
               <div className={styles.skillsGrid}>
-                {skillGroups.map((g) => (
-                  <article key={g.category} className={styles.skillCard}>
+                {c.skillGroups.map((g) => (
+                  <article key={`${locale}-${g.category}`} className={styles.skillCard}>
                     <h3>{g.category}</h3>
                     <ul className={styles.chips}>
                       {g.items.map((x) => (
@@ -155,17 +173,16 @@ export function Portfolio() {
           >
             <div className={styles.blockInner}>
               <header className={styles.blockHead}>
-                <span className={styles.blockIdx}>03</span>
                 <h2 id="h-exp" className={styles.blockTitle}>
-                  Experiencia
+                  {c.sections.experience}
                 </h2>
               </header>
               <ol className={styles.timeline}>
-                {experience.map((job, i) => (
+                {c.experience.map((job, i) => (
                   <li key={`${job.role}-${job.period}`} className={styles.tlItem}>
                     <div className={styles.tlMark} aria-hidden>
                       <span className={styles.tlDot} />
-                      {i < experience.length - 1 ? <span className={styles.tlLine} /> : null}
+                      {i < c.experience.length - 1 ? <span className={styles.tlLine} /> : null}
                     </div>
                     <article className={styles.tlBody}>
                       <p className={styles.tlCo}>{job.company}</p>
@@ -186,14 +203,13 @@ export function Portfolio() {
           <section id={sectionIds.education} className={styles.block} aria-labelledby="h-edu">
             <div className={styles.blockInner}>
               <header className={styles.blockHead}>
-                <span className={styles.blockIdx}>04</span>
                 <h2 id="h-edu" className={styles.blockTitle}>
-                  Educación
+                  {c.sections.education}
                 </h2>
               </header>
               <ul className={styles.eduList}>
-                {education.map((e) => (
-                  <li key={e.title} className={styles.eduCard}>
+                {c.education.map((e) => (
+                  <li key={`${e.institution}-${e.period}-${e.title}`} className={styles.eduCard}>
                     <div className={styles.eduTop}>
                       <h3 className={styles.eduName}>{e.title}</h3>
                       {e.status ? <span className={styles.eduBadge}>{e.status}</span> : null}
@@ -213,41 +229,75 @@ export function Portfolio() {
           >
             <div className={styles.blockInner}>
               <header className={styles.blockHead}>
-                <span className={styles.blockIdx}>05</span>
                 <h2 id="h-contact" className={styles.blockTitle}>
-                  Contacto
+                  {c.sections.contact}
                 </h2>
               </header>
               <div className={styles.contactGrid}>
-                <p className={styles.contactLead}>
-                  Si querés charlar sobre un proyecto o una oportunidad, escribime.
-                </p>
+                <p className={styles.contactLead}>{c.contact.lead}</p>
                 <dl className={styles.contactCard}>
                   <div className={styles.contactRow}>
-                    <dt>Email</dt>
+                    <dt>{c.contact.gmail}</dt>
                     <dd>
-                      <a href={`mailto:${personal.email}`}>{personal.email}</a>
+                      <a className={styles.contactLine} href={`mailto:${personal.email}`}>
+                        <IconGmail className={styles.contactIcon} />
+                        <span>{personal.email}</span>
+                      </a>
                     </dd>
                   </div>
                   <div className={styles.contactRow}>
-                    <dt>Teléfono</dt>
+                    <dt>{c.contact.whatsapp}</dt>
                     <dd>
-                      <a href={`tel:+${personal.phone.replace(/\D/g, '')}`}>{personal.phone}</a>
+                      <a
+                        className={styles.contactLine}
+                        href={whatsappHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={c.contact.whatsappAria}
+                      >
+                        <IconWhatsapp className={styles.contactIcon} />
+                        <span>{personal.phone}</span>
+                      </a>
                     </dd>
                   </div>
                   <div className={styles.contactRow}>
-                    <dt>Ubicación</dt>
-                    <dd>{personal.location}</dd>
+                    <dt>{c.contact.location}</dt>
+                    <dd>
+                      <a
+                        className={styles.contactLine}
+                        href={mapsHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={c.contact.mapsAria(personal.location)}
+                      >
+                        <IconGoogleMaps className={styles.contactIcon} />
+                        <span>{personal.location}</span>
+                      </a>
+                    </dd>
                   </div>
                   <div className={styles.contactRow}>
-                    <dt>Redes</dt>
-                    <dd className={styles.contactSocial}>
-                      <a href={personal.linkedin.href} target="_blank" rel="noopener noreferrer">
-                        LinkedIn
-                      </a>
-                      <a href={personal.github.href} target="_blank" rel="noopener noreferrer">
-                        GitHub
-                      </a>
+                    <dt>{c.contact.social}</dt>
+                    <dd>
+                      <div className={styles.contactSocial}>
+                        <a
+                          className={styles.socialPill}
+                          href={personal.linkedin.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <IconLinkedIn className={styles.socialIcon} />
+                          {personal.linkedin.label}
+                        </a>
+                        <a
+                          className={styles.socialPill}
+                          href={personal.github.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <IconGithub className={styles.socialIcon} />
+                          {personal.github.label}
+                        </a>
+                      </div>
                     </dd>
                   </div>
                 </dl>
@@ -258,9 +308,8 @@ export function Portfolio() {
 
         <footer className={styles.footer}>
           <p>
-            © {new Date().getFullYear()} {personal.name} · React + Vite
+            © {new Date().getFullYear()} {personal.name}
           </p>
-          <p>Portfolio estático</p>
         </footer>
       </div>
     </div>

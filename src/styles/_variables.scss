@@ -35,7 +35,8 @@
   --radius-md: 12px;
   --radius-lg: 20px;
 
-  --header-height: 4.25rem;
+  /* Altura útil al anclar secciones con header flotante (padding + barra) */
+  --header-sticky-offset: 5rem;
   --content-max: 72rem;
 
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
