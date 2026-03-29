@@ -1,6 +1,5 @@
 /**
- * Contenido centralizado del CV / portfolio.
- * Editá acá los textos sin tocar la estructura de componentes.
+ * Textos y datos del portfolio. El layout vive en Portfolio.tsx.
  */
 
 export const personal = {
@@ -8,9 +7,9 @@ export const personal = {
   title: 'Desarrollador Full Stack',
   tagline:
     'Vue.js y JavaScript en el cliente, Spring Boot y PostgreSQL en el servidor, APIs REST y despliegues en Linux/AWS. Integro herramientas de IA en el flujo diario con revisión y criterio técnico.',
-  location: 'Cosquín, Córdoba, Argentina',
+  /** Solo bloque contacto */
+  location: 'Córdoba, Argentina',
   phone: '(54) 3541 683094',
-  birthDate: '31/08/1993',
   email: 'martingarcia1112.mg@gmail.com',
   linkedin: {
     label: 'LinkedIn',
@@ -24,18 +23,16 @@ export const personal = {
   },
 } as const
 
-/** Bloque “Sobre mí” — tono generalista + full stack + IA */
 export const aboutParagraphs = [
   'Desarrollador de software con experiencia desde 2022: fuerte en Vue.js y JavaScript para productos web, y cada vez más cómodo llevando features hasta backend, datos y despliegue.',
   'Trabajo con APIs REST, Spring Boot, PostgreSQL y entornos ágiles, priorizando código mantenible y entregas con impacto en usuarios y negocio.',
   'Uso asistencia de IA (por ejemplo Cursor) para acelerar exploración, documentación y refactors, siempre validando con pruebas, revisión y buenas prácticas — la IA amplía el alcance, no reemplaza el criterio.',
 ] as const
 
-/** Habilidades agrupadas para la grilla de chips */
 export const skillGroups = [
   {
     category: 'Cliente web',
-    items: ['Vue.js (v2, v3)', 'JavaScript', 'HTML5', 'CSS3'],
+    items: ['Vue.js (v2, v3)', 'React', 'JavaScript', 'HTML5', 'CSS3'],
   },
   {
     category: 'Backend & APIs',
@@ -70,7 +67,6 @@ export type ExperienceItem = {
   bullets: readonly string[]
 }
 
-/** Experiencia: orden de más reciente / relevante primero */
 export const experience: readonly ExperienceItem[] = [
   {
     company: 'Social Learning',
@@ -127,7 +123,6 @@ export const education: readonly EducationItem[] = [
   },
 ] as const
 
-/** IDs de sección — deben coincidir con los anchors del header y los <section id> */
 export const sectionIds = {
   home: 'inicio',
   about: 'sobre-mi',
@@ -136,3 +131,12 @@ export const sectionIds = {
   education: 'educacion',
   contact: 'contacto',
 } as const
+
+export const navItems = [
+  { id: sectionIds.home, label: 'Inicio' },
+  { id: sectionIds.about, label: 'Sobre mí' },
+  { id: sectionIds.skills, label: 'Habilidades' },
+  { id: sectionIds.experience, label: 'Experiencia' },
+  { id: sectionIds.education, label: 'Educación' },
+  { id: sectionIds.contact, label: 'Contacto' },
+] as const

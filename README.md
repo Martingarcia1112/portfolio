@@ -1,6 +1,6 @@
 # Portfolio — Martín García
 
-Sitio personal estático: **React 19**, **TypeScript**, **Vite 8** y **SCSS** (módulos por componente). Los textos del CV viven en `src/data/cvContent.ts` para editarlos en un solo lugar.
+Sitio personal estático: **React 19**, **TypeScript**, **Vite 8** y **SCSS**. UI principal en `Portfolio.tsx` + `Portfolio.module.scss`; textos en `src/data/cvContent.ts`.
 
 ## Desarrollo local
 
@@ -38,10 +38,10 @@ El archivo `vercel.json` fija explícitamente framework Vite y los comandos ante
 
 | Ruta | Rol |
 |------|-----|
-| `src/data/cvContent.ts` | Datos del CV (textos, enlaces, experiencia, educación) |
-| `src/components/*` | Secciones y piezas reutilizables (header, hero, etc.) |
-| `src/hooks/*` | Navegación activa al scroll y animación de secciones |
-| `src/styles/` | Variables globales + `global.scss` |
-| `public/images/` | Archivos estáticos servidos tal cual (foto de perfil) |
-
-Los componentes incluyen comentarios en español describiendo su función.
+| `src/data/cvContent.ts` | CV: textos, `navItems`, experiencia, educación |
+| `src/Portfolio.tsx` | Toda la página (header, secciones, footer) |
+| `src/Portfolio.module.scss` | Estilos del portfolio |
+| `src/hooks/useActiveSection.ts` | Resalta el ítem del menú al hacer scroll |
+| `src/hooks/useAmbientPointer.ts` | Halo suave que sigue al puntero |
+| `src/styles/` | Variables + `global.scss` |
+| `public/images/` | `profile.jpg` y estáticos |

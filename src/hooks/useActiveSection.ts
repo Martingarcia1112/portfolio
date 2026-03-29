@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react'
 import { sectionIds } from '../data/cvContent'
 
-/**
- * Observa qué sección está más visible en el viewport para resaltar el ítem activo en el nav.
- * Usa IntersectionObserver con márgenes para aproximar “la sección en lectura”.
- */
+/** Nav activo según la sección más visible (IntersectionObserver). */
 const observedIds = [
   sectionIds.home,
   sectionIds.about,
