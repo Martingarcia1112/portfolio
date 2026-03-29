@@ -1,0 +1,42 @@
+/**
+ * Tokens de diseño: colores, tipografía, espaciado.
+ * Estética “editorial nocturna” con acento cálido (diferenciada de plantillas genéricas).
+ */
+
+:root {
+  /* Fondos */
+  --color-bg: #0c0b0a;
+  --color-bg-elevated: #141210;
+  --color-bg-card: #1a1816;
+  --color-border: rgba(244, 240, 232, 0.08);
+
+  /* Texto */
+  --color-text: #f4f0e8;
+  --color-text-muted: #9c9690;
+  --color-text-subtle: #6b6660;
+
+  /* Acento: terracota / arcilla */
+  --color-accent: #c96b4a;
+  --color-accent-soft: rgba(201, 107, 74, 0.15);
+  --color-accent-glow: rgba(201, 107, 74, 0.35);
+
+  /* Tipografía (Google Fonts en index.html) */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+
+  --space-xs: 0.35rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.25rem;
+  --space-lg: 2rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 5rem;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --header-height: 4.25rem;
+  --content-max: 72rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}

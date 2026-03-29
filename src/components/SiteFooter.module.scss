@@ -1,0 +1,23 @@
+.footer {
+  padding: var(--space-xl) var(--space-lg);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-lg);
+}
+
+.inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.text {
+  margin: 0 0 var(--space-xs);
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.sub {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--color-text-subtle);
+}

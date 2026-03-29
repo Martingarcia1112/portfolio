@@ -1,0 +1,65 @@
+.section {
+  scroll-margin-top: var(--header-height);
+  padding: var(--space-2xl) var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.section.muted {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--color-bg-elevated) 35%,
+    var(--color-bg-elevated) 65%,
+    transparent 100%
+  );
+}
+
+.inner {
+  max-width: var(--content-max);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--space-xl);
+}
+
+.index {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: var(--space-xs);
+  letter-spacing: 0.08em;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 600;
+}
+
+.body {
+  /* Contenido: layout definido por cada sección hija */
+  display: block;
+}
+
+/*
+ * Animación ligera solo en movimiento: el texto nunca queda con opacity 0
+ * (evita bloqueos si el IntersectionObserver no dispara en secciones largas).
+ */
+.reveal {
+  transform: translateY(14px);
+  transition: transform 0.55s var(--ease-out);
+}
+
+.reveal.isRevealed {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    transform: none;
+    transition: none;
+  }
+}
